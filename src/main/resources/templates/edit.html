@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改停车场数据</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" method="post" action="/updataParkingLot" lay-filter="info">
+    <div class="layui-form-item">
+        <label class="layui-form-label layui-required">车场号</label>
+        <div class="layui-input-block">
+            <input type="text" id = "parkingId" name="parkingId" lay-verify="required|number" lay-reqtext="车场号是必填项，不能为空"
+                   th:placeholder="${parkingId}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">停车场名称</label>
+        <div class="layui-input-block">
+            <input id = "parkingName" type="text" name="parkingName" lay-verify="required" lay-reqtext="停车场名称是必填项，不能为空"
+                   th:placeholder="${parkingName}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车场车位数</label>
+        <div class="layui-input-block">
+            <input type="text"  id = "parkingSpaceCount" name="parkingSpaceCount" lay-verify="required|number"
+                   th:placeholder="${parkingSpaceCount}" lay-reqtext="车场车位数是必填项，不能为空"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">计时单元</label>
+        <div class="layui-input-block">
+            <input type="text" name="timingUnit"   id = "timingUnit" lay-verify="required|number" lay-reqtext="计时单元是必填项，不能为空"
+                   th:placeholder="${timingUnit}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单元费用</label>
+        <div class="layui-input-block">
+            <input type="text" name="unitCost" id = "unitCost" lay-verify="required|number" lay-reqtext="单元费用是必填项，不能为空"
+                   th:placeholder="${unitCost}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn tt" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

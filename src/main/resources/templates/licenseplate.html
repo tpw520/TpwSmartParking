@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<!--车牌识别-->
+<form  method="post" action="/imageRecognition" enctype="multipart/form-data">
+    <label>选择框</label>
+    <select name="parkingName" id="channel" class="classify">
+        <option value="请选择">请选择</option>
+    </select>
+    <input type="file" name="fileName">
+    <input type="submit" value="提交">
+</form>
+
+<script>
+    $("#province").empty();
+    //获取数据
+    $.ajax({
+        type:"GET",
+        url:"/carNameSelect",
+        dataType: "json",
+        success:function(res){
+            for(var key in res){
+                $("#channel").append("<option value='" + res[key] + "'>" + res[key] + "</option>");
+            }
+        }
+    });
+</script>
+</body>
+</html>
+

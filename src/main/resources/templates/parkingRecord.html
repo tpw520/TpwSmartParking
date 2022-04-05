@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>停车记录</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="test"></table>
+</body>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#test'
+            , url: '/parkingRecordAll'
+            , cols: [
+                [
+                    {field: 'parkingName', width: 120, title: '车场名'}
+                    , {field: 'numberPlate', width: 240, title: '车牌号'}
+                    , {field: 'inDateTime', width: 240, title: '进场时间'}
+                    , {field: 'outDateTime', width: 240, title: '出场时间'}
+                    , {field: 'money', title: '费用', width: 120}
+                    , {field: 'status', title: '车辆状态', width: 120}
+                ]
+            ]
+            , page: true
+        });
+    });
+</script>
+</html>

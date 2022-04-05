@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="layui/css/layui.css">
+		<script src="layui/layui.js"></script>
+		<script src="jquery.min.js"></script>
+	</head>
+	<body>
+		<form class="layui-form" method="post" action="http://localhost:8080/insertParkingLot" lay-filter="info">
+			<div class="layui-form-item">
+				<label class="layui-form-label layui-required">车场号</label>
+				<div class="layui-input-block">
+					<input type="text" id = "parkingId" name="parkingId" lay-verify="required|number" lay-reqtext="车场号是必填项，不能为空"
+						placeholder="请输入" autocomplete="off" class="layui-input" >
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">停车场名称</label>
+				<div class="layui-input-block">
+					<input id = "parkingName" type="text" name="parkingName" lay-verify="required" lay-reqtext="停车场名称是必填项，不能为空"
+						placeholder="请输入" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">车场车位数</label>
+				<div class="layui-input-block">
+					<input type="text" id = "parkingSpaceCount" name="parkingSpaceCount" lay-verify="required|number"
+						lay-reqtext="车场车位数是必填项，不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">计时单元</label>
+				<div class="layui-input-block">
+					<input type="text" name="timingUnit"  id = "timingUnit" lay-verify="required|number" lay-reqtext="计时单元是必填项，不能为空"
+						placeholder="请输入" autocomplete="off" class="layui-input" width="150px">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">单元费用</label>
+				<div class="layui-input-block">
+					<input type="text" name="unitCost"  id = "unitCost" lay-verify="required|number" lay-reqtext="单元费用是必填项，不能为空"
+						placeholder="请输入" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button type="submit" class="layui-btn tt" lay-submit="" lay-filter="demo1">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+
+		<script>
+			// layui.use(['jquery', 'form', 'laytpl'], function() {
+			// 	var $ = layui.$;
+			// 	var form = layui.form,
+			// 		layer = layui.layer;
+				// console.log($("#parkingId").val());
+				// console.log("324");
+				// form.val("info",{
+				// 	"parkingId": $("#parkingId").val(),
+				// 	"parkingName":$("#parkingName").val(),
+				// 	"parkingSpaceCount":$("#parkingSpaceCount").val(),
+				// 	"timingUnit":$("#timingUnit").val(),
+				// 	"unitCost": $("#unitCost").val()
+				// });
+				// form.on('submit(demo1)', function(data) {
+				// 	console.log(form.val())
+				// });
+				/** 要使用render,复杂表单元素才能显示 */
+				// form.render();
+			// });
+		</script>
+	</body>
+</html>
