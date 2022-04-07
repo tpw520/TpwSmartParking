@@ -1,5 +1,8 @@
 package com.example.tpwsmartparking.service.impl;
 
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.tpwsmartparking.entity.ParkingLot;
 import com.example.tpwsmartparking.mapper.ParkingLotMapper;
 import com.example.tpwsmartparking.service.ParkingLotService;
@@ -15,11 +18,13 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     //将查询到的车场信息封装成Vo对象,得到ParkingLotVo对象
-    public ParkingLotVo<ParkingLot> getParkingLotVo() {
+    public ParkingLotVo<ParkingLot> getParkingLotVo(Integer page, Integer limit) {
         ParkingLotVo<ParkingLot> vo = new ParkingLotVo<>();
         vo.setCode(0);
         vo.setMsg("");
         //查询到的车场数量
+//        IPage<ParkingLot> parkingLotPage = new Page<>(page, limit);
+//        IPage<ParkingLot> result = parkingLotMapper.selectPage(parkingLotPage, null);
         vo.setCount(parkingLotMapper.getParkingLotList().size());
         //查询到的车场信息
         vo.setData(parkingLotMapper.getParkingLotList());

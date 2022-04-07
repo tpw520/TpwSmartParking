@@ -9,26 +9,141 @@
     <link rel="stylesheet" href="layui/css/layui.css">
     <script src="layui/layui.js"></script>
     <script src="jquery.min.js"></script>
+
 </head>
+
+<style>
+    .focus-in-contract {
+        -webkit-animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    @-webkit-keyframes focus-in-contract {
+        0% {
+            letter-spacing: 1em;
+            -webkit-filter: blur(12px);
+            filter: blur(12px);
+            opacity: 0;
+        }
+        100% {
+            -webkit-filter: blur(0px);
+            filter: blur(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes focus-in-contract {
+        0% {
+            letter-spacing: 1em;
+            -webkit-filter: blur(12px);
+            filter: blur(12px);
+            opacity: 0;
+        }
+        100% {
+            -webkit-filter: blur(0px);
+            filter: blur(0px);
+            opacity: 1;
+        }
+    }
+
+    .from {
+        margin: 200px 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input {
+        width: 250px;
+        height: 30px;
+        border: none;
+        margin: 20px;
+        border-radius: 30px;
+        /* padding: 2px 25px; */
+        text-align: center;
+    }
+
+    /* From cssbuttons.io by @alexmaracinaru */
+    .cta {
+        position: relative;
+        margin: auto;
+        padding: 12px 18px;
+        transition: all 0.2s ease;
+        border: none;
+        background: none;
+    }
+
+    .cta:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 50px;
+        background: #b1dae7;
+        width: 45px;
+        height: 45px;
+        transition: all 0.3s ease;
+    }
+
+    .cta span {
+        position: relative;
+        font-family: "Ubuntu", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #234567;
+    }
+
+    .cta svg {
+        position: relative;
+        top: 0;
+        margin-left: 10px;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke: #234567;
+        stroke-width: 2;
+        transform: translateX(-5px);
+        transition: all 0.3s ease;
+    }
+
+    .cta:hover:before {
+        width: 100%;
+        background: #b1dae7;
+    }
+
+    .cta:hover svg {
+        transform: translateX(0);
+    }
+
+    .cta:active {
+        transform: scale(0.95);
+    }
+
+
+</style>
 <body background="images/login.svg">
-<form class="layui-form" action="/login" method="post">
-    <div class="layui-form-item" style="color: #009E94">
-        <font size="5">Smart ParkingLot System</font>
+<form class="from" action="/login" method="post">
+    <div class="layui-form-item focus-in-contract" style="color: #009E94">
+        <h1 size="5">Smart&nbspParkingLot&nbspSystem</h1>
     </div>
-    <div class="layui-form-item">
+    <h3 style="color: #ee675c;">
         [[${msg}]]
+    </h3>
+    <div>
+        <input name="adminName" type="text" placeholder="账 户" hover class="input"/>
     </div>
-    <div class="layui-form-item">
-        <input name="adminName" type="text" placeholder="账 户" hover class="layui-input"/>
+    <div>
+        <input name="adminPassword" type="password" placeholder="密 码" hover class="input"/>
     </div>
-    <div class="layui-form-item">
-        <input name="adminPassword" type="password" placeholder="密 码" hover class="layui-input"/>
-    </div>
-    <div class="layui-form-item">
-        <button class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
-            登 入
-        </button>
-    </div>
+    <button class="cta">
+        <span style="color: #009E94">登 录</span>
+        <svg viewBox="0 0 13 10" height="10px" width="15px">
+            <path d="M1,5 L11,5"></path>
+            <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+    </button>
 </form>
 </body>
 </html>

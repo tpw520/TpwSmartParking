@@ -1,7 +1,7 @@
 package com.example.tpwsmartparking.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.tpwsmartparking.entity.ParkingLot;
-import com.example.tpwsmartparking.vo.ParkingLotVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

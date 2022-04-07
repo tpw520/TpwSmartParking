@@ -5,7 +5,7 @@ import com.example.tpwsmartparking.vo.ParkingLotVo;
 
 //停车场管理
 public interface ParkingLotService {
-    ParkingLotVo<ParkingLot> getParkingLotVo();
+    ParkingLotVo<ParkingLot> getParkingLotVo(Integer page, Integer limit);
 
     Integer deleteParkingLotList(String parkingIdList);
 

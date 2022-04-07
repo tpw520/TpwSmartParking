@@ -1,8 +1,10 @@
 package com.example.tpwsmartparking.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
+@TableName("parkingLot")
 public class ParkingLot {
     //车场id
     private Integer parkingId;

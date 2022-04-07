@@ -6,30 +6,34 @@
     <link rel="stylesheet" href="layui/css/layui.css">
     <script src="layui/layui.js"></script>
     <script src="jquery.min.js"></script>
+
 </head>
 <body>
 <!--车牌识别-->
 <form method="post" action="/imageRecognition" enctype="multipart/form-data">
-    <label>选择框</label>
+    <label>车场选择</label>
     <select name="parkingName" id="channel" class="classify">
-        <option value="请选择">请选择</option>
+        <option value="请选择" disabled>请选择</option>
     </select>
     <input type="file" name="fileName">
     <input type="submit" value="提交">
 </form>
 
 
-<center><h1>html5调用摄像头demo</h1></center>
-<video id="video" width="640" height="480" autoplay="autoplay"></video>
-<canvas id="canvas" width="640" height="480"></canvas>
-<!--拍照按钮-->
 <div>
-    <button id="opencapture" onclick="getMedia()">开启</button>
-    <button onclick="stopStreamedVideo(video)">关闭摄像头</button>
-    <button id="capture">拍照上传</button>
-</div>
-<div>
-    <img id="img">
+    <center><h1>html5调用摄像头demo</h1></center>
+    <video id="video" width="640" height="480" autoplay="autoplay"></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <!--拍照按钮-->
+    <div>
+        <button id="opencapture" onclick="getMedia()">开启</button>
+        <button onclick="stopStreamedVideo(video)">关闭摄像头</button>
+        <button id="capture">拍照上传</button>
+    </div>
+    <div>
+        <img id="img">
+    </div>
+
 </div>
 
 <script>
@@ -117,15 +121,15 @@
         context.drawImage(video, 0, 0, 640, 480);
         let file = canvas.toDataURL();
         var formData = new FormData();
-        let blob= dataURLtoFile(file, 'image/jpg');
-        console.log(blob);
-        console.log("*********************************");
+        let blob = dataURLtoFile(file, 'image/jpg');
 
-        let fileOfBlob = new File([blob], new Date()+'.jpg');
-        console.log(fileOfBlob);
-        console.log("*********************************");
+        let fileOfBlob = new File([blob], new Date() + '.jpg');
+        //获取选择标签的值
+        let channel = document.getElementById("channel");
+        let ParkingName = channel.value;
+        console.log(ParkingName);
         formData.append('fileName', fileOfBlob);
-        formData.append('parkingName', "CSD");
+        formData.append('parkingName', ParkingName);
         $.ajax({
             type: "post",
             url: "/imageRecognition1",
@@ -143,20 +147,15 @@
         });
 
     });
+
     function dataURLtoFile(dataURI, type) {
         let binary = atob(dataURI.split(',')[1]);
         let array = [];
-        for(let i = 0; i < binary.length; i++) {
+        for (let i = 0; i < binary.length; i++) {
             array.push(binary.charCodeAt(i));
         }
-        return new Blob([new Uint8Array(array)], {type:type });
+        return new Blob([new Uint8Array(array)], {type: type});
     }
-
-
-    // let data = canvas.toDataURL();
-    // console.log(data);
-    // let img = document.getElementById("img");
-    // img.src = data;
 
 </script>
 </body>

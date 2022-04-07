@@ -1,6 +1,7 @@
 package com.example.tpwsmartparking.controller;
 
 import com.example.tpwsmartparking.entity.ParkingLot;
+import com.example.tpwsmartparking.service.ParkingLotPageService;
 import com.example.tpwsmartparking.service.ParkingLotService;
 import com.example.tpwsmartparking.vo.ParkingLotVo;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 public class ParkingLotController {
     @Autowired
     private ParkingLotService parkingLotService;
+    @Autowired
+    private ParkingLotPageService parkingLotPageService;
     //parkingLot请求，跳转到parkingLot页面。
     @GetMapping("/parkingLot")
     public String parkingLot(){
@@ -23,12 +26,11 @@ public class ParkingLotController {
     }
 
     //渲染数据，前端访问:/list接口，后端返回符合要求的json字符串-->parkingLotVo
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list" ,method = RequestMethod.GET)
     @ResponseBody
-    public ParkingLotVo<ParkingLot> parkingLotList() {
-        return parkingLotService.getParkingLotVo();
+    public ParkingLotVo<ParkingLot> parkingLotList(Integer page, Integer limit) {
+        return parkingLotPageService.getParkingLotVo(page,limit);
     }
-
     //删除停车场 --> 批量删除
     @PostMapping("/deleteParkingLotList")
     @ResponseBody

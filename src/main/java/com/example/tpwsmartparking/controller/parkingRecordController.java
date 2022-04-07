@@ -17,8 +17,8 @@ public class parkingRecordController {
     private ParkingRecordService parkingRecordService;
     @GetMapping("/parkingRecordAll")
     @ResponseBody
-    public ParkingRecordVo<ParkingRecord> parkingRecordAll(){
-        return parkingRecordService.getParkRecordAll();
+    public ParkingRecordVo<ParkingRecord> parkingRecordAll(Integer page,Integer limit){
+        return parkingRecordService.getParkRecordAll(page,limit);
     }
     @GetMapping("/parkingRecord")
     public String parkingRecord(){

@@ -15,5 +15,6 @@ public interface ParkingRecordService {
     //查询一条停车记录
     ParkingRecord getParkingRecord(String numberPlate);
     //查询所有的停车记录
-    ParkingRecordVo<ParkingRecord> getParkRecordAll();
+    ParkingRecordVo<ParkingRecord> getParkRecordAll(Integer page,Integer limit);
+
 }

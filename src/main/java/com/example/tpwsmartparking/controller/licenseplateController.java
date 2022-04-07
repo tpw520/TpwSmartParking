@@ -6,7 +6,6 @@ import com.example.tpwsmartparking.entity.ParkingRecord;
 import com.example.tpwsmartparking.service.ParkingLotService;
 import com.example.tpwsmartparking.service.ParkingRecordService;
 import com.example.tpwsmartparking.utils.baiduiApi.WebImage;
-import com.example.tpwsmartparking.utils.customize.FileJudgeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 //车牌识别
 @Slf4j
@@ -110,6 +108,7 @@ public class licenseplateController {
         return "licenseplate";
     }
 
+    //将MultipartFile转换成文件
     public void copyFileWithBuffered(MultipartFile multipartFile, String name) {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
@@ -154,4 +153,6 @@ public class licenseplateController {
             }
         }
     }
+
+
 }
