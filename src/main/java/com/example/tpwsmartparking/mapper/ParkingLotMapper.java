@@ -11,7 +11,7 @@ public interface ParkingLotMapper {
 
     //查询所有停车场信息
     @Select("select * from parkinglot")
-    public List<ParkingLot> getParkingLotList();
+    List<ParkingLot> getParkingLotList();
 
     //删除停车场
     @Delete("DELETE FROM `parkinglot` WHERE `parking_id` = #{parkingId}")
@@ -29,5 +29,6 @@ public interface ParkingLotMapper {
     //根据车场名寻找车场
     @Select("select * from parkinglot where parking_name = #{parkingName}")
     ParkingLot getParkingLotByName(String parkingName);
+
 }
 

@@ -3,6 +3,8 @@ package com.example.tpwsmartparking.service;
 import com.example.tpwsmartparking.entity.ParkingLot;
 import com.example.tpwsmartparking.vo.ParkingLotVo;
 
+import java.util.List;
+
 //停车场管理
 public interface ParkingLotService {
     ParkingLotVo<ParkingLot> getParkingLotVo(Integer page, Integer limit);
@@ -16,5 +18,7 @@ public interface ParkingLotService {
     void delParkingLot(int parseInt);
 
     ParkingLot getParkingLotByName(String parkingName);
+
+    List<ParkingLot> getParkingLotList();
 
 }

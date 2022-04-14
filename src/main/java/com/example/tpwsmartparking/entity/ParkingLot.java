@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("parkingLot")
+@TableName("parkinglot")
 public class ParkingLot {
     //车场id
     private Integer parkingId;

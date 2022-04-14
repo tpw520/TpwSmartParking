@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>停车记录</title>
@@ -8,26 +8,101 @@
     <script src="jquery.min.js"></script>
 </head>
 <body>
+<!--<form class="layui-form" method="get" action="/parkingRecordDate">-->
+<!--&lt;!&ndash;    <label>根据停车日期查找停车记录</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="text" id="test1" style="width: 160px" name="date1">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="text" id="test2" style="width: 160px" name="date2">&ndash;&gt;-->
+<!--    <button >提交</button>-->
+<!--</form>-->
+<blockquote class="layui-elem-quote quoteBox">
+    <form class="layui-form">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <label>根据车牌号查找停车记录</label>
+                <input type="text" class="layui-input searchVal" id="text1" placeholder="请输入搜索的车牌号" />
+            </div>
+            <a class="layui-btn search_btn" id="mySearch1" data-type="reload">搜索</a>
+        </div>
+        <br>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                    <label>根据停车日期查找停车记录</label>
+                    <input type="text" id="test1" style="width: 160px" name="date1" placeholder="开始日期">
+                    <input type="text" id="test2" style="width: 160px" name="date2" placeholder="终止日期">
+            </div>
+            <a class="layui-btn search_btn" id="mySearch2" data-type="reload">搜索</a>
+        </div>
+
+    </form>
+</blockquote>
+
 <table class="layui-hide" id="test"></table>
 </body>
 <script>
-    layui.use('table', function () {
-        var table = layui.table;
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1'
+            ,type: 'datetime'
+
+        });
+        laydate.render({
+            elem: '#test2'
+            ,type: 'datetime'
+
+        });
+    });
+</script>
+<script>
+    layui.use(['jquery', 'form', 'table', 'layer', 'tree'], function () {
+        var	$ = layui.jquery,
+            form = layui.form,
+            table = layui.table
+
         table.render({
             elem: '#test'
-            , url: '/parkingRecordAll'
+            ,url: '/parkingRecordAll'
+            ,id:'test'
+            ,toolbar: '#toolbarDemo'
             , cols: [
                 [
                     {field: 'parkingName', width: 120, title: '车场名'}
                     , {field: 'numberPlate', width: 240, title: '车牌号'}
-                    , {field: 'inDateTime', width: 240, title: '进场时间'}
-                    , {field: 'outDateTime', width: 240, title: '出场时间'}
-                    , {field: 'money', title: '费用', width: 120}
+                    , {field: 'inDateTime', width: 240, title: '进场时间',sort: true}
+                    , {field: 'outDateTime', width: 240, title: '出场时间',sort: true}
+                    , {field: 'money', title: '费用', width: 120,sort: true}
                     , {field: 'status', title: '车辆状态', width: 120}
                 ]
             ]
             , page: true
         });
+        $('#mySearch1').on('click',function () {
+
+            table.reload('test',{
+                url: "/parkingRecordNumberPlate",
+                page:{
+                    curr:1
+                },
+                where:{
+                    NumberPlate:document.getElementById("text1").value,
+                }
+            })
+        })
+        $('#mySearch2').on('click',function () {
+
+            table.reload('test',{
+                url: "/parkingRecordDate",
+                page:{
+                    curr:1
+                },
+                where:{
+                    date1:document.getElementById("test1").value,
+                    date2:document.getElementById("test2").value
+                }
+            })
+        })
+
     });
 </script>
 </html>

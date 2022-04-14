@@ -6,6 +6,7 @@ import com.example.tpwsmartparking.entity.ParkingRecord;
 import com.example.tpwsmartparking.service.ParkingLotService;
 import com.example.tpwsmartparking.service.ParkingRecordService;
 import com.example.tpwsmartparking.utils.baiduiApi.WebImage;
+import com.sun.javafx.collections.MappingChange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 //车牌识别
 @Slf4j
@@ -31,7 +33,7 @@ public class licenseplateController {
     }
 
     @PostMapping("/imageRecognition")
-    public String licenseplate(@RequestPart("fileName") MultipartFile fileName, @RequestParam("parkingName") String parkingName) {
+    public String licenseplate(@RequestPart("fileName") MultipartFile fileName, @RequestParam("parkingName") String parkingName, Map map) {
 //        String numberPlate = FileJudgeUtil.fileJudgeUtil(fileName);
         log.info("{}-------------------------->", fileName.getName());
         String originalFilename = null;
@@ -45,10 +47,13 @@ public class licenseplateController {
         }
         log.info("**************{}", numberPlate);
         String status = parkingRecordService.selectParkingRecordExist(numberPlate);
+//        ParkingRecord parkingRecord = parkingRecordService.getParkingRecord(numberPlate);
+//        String parkingNameCurrent = parkingRecord.getParkingName();
         log.info("{}", "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-=-------------=" + status);
+        //如果为空，代表第一次进入
         if (status == null) {
             parkingRecordService.insertParkingRecord(parkingName, numberPlate, LocalDateTime.now(), null, 0, "1");
-        } else {
+        } else if (parkingName.equals(parkingRecordService.getParkingRecord(numberPlate).getParkingName())){
             log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-=-------------=");
             ParkingLot parkingLot = parkingLotService.getParkingLotByName(parkingName);
             Integer unitCost = null;
@@ -62,13 +67,16 @@ public class licenseplateController {
             long minutes = Duration.between(inDateTime, LocalDateTime.now()).toMinutes();
             int money = (int) (minutes / timingUnit * unitCost);
 
-            parkingRecordService.updataParkingRecord(parkingName, numberPlate, inDateTime, LocalDateTime.now(), money, "0");
+            parkingRecordService.updataParkingRecord(parkingRecord.getParkingName(), numberPlate, inDateTime, LocalDateTime.now(), money, "0");
+
+        }else {
+            map.put("ErrorMsg", "车辆已在别处停车，请注意车辆是否被套牌");
         }
         return "licenseplate";
     }
 
     @PostMapping("/imageRecognition1")
-    public String licenseplate1(@RequestParam("fileName") MultipartFile multipartFile, @RequestParam("parkingName") String parkingName) {
+    public String licenseplate1(@RequestParam("fileName") MultipartFile multipartFile, @RequestParam("parkingName") String parkingName ,Map map) {
 
         String originalFilename = null;
         String numberPlate = null;
@@ -83,10 +91,13 @@ public class licenseplateController {
         }
         log.info("**************{}", numberPlate);
         String status = parkingRecordService.selectParkingRecordExist(numberPlate);
+//        ParkingRecord parkingRecord = parkingRecordService.getParkingRecord(numberPlate);
+//        String parkingNameCurrent = parkingRecord.getParkingName();
         log.info("{}", "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-=-------------=" + status);
+        //如果为空，代表第一次进入
         if (status == null) {
             parkingRecordService.insertParkingRecord(parkingName, numberPlate, LocalDateTime.now(), null, 0, "1");
-        } else {
+        } else if (parkingName.equals(parkingRecordService.getParkingRecord(numberPlate).getParkingName())){
             log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-=-------------=");
             ParkingLot parkingLot = parkingLotService.getParkingLotByName(parkingName);
             Integer unitCost = null;
@@ -98,12 +109,12 @@ public class licenseplateController {
             ParkingRecord parkingRecord = parkingRecordService.getParkingRecord(numberPlate);
             LocalDateTime inDateTime = parkingRecord.getInDateTime();
             long minutes = Duration.between(inDateTime, LocalDateTime.now()).toMinutes();
-            int money = 0;
-            if (unitCost != null && timingUnit != null) {
-                money = (int) (minutes / timingUnit * unitCost);
-            }
+            int money = (int) (minutes / timingUnit * unitCost);
 
-            parkingRecordService.updataParkingRecord(parkingName, numberPlate, inDateTime, LocalDateTime.now(), money, "0");
+            parkingRecordService.updataParkingRecord(parkingRecord.getParkingName(), numberPlate, inDateTime, LocalDateTime.now(), money, "0");
+
+        }else {
+            map.put("ErrorMsg", "车辆已在别处停车，请注意车辆是否被套牌");
         }
         return "licenseplate";
     }
@@ -154,5 +165,6 @@ public class licenseplateController {
         }
     }
 
+    //判断车辆是否套牌
 
 }

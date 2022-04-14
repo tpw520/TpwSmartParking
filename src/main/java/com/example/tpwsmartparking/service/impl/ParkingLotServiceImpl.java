@@ -10,6 +10,8 @@ import com.example.tpwsmartparking.vo.ParkingLotVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 //停车场管理
 @Service
 public class ParkingLotServiceImpl implements ParkingLotService {
@@ -70,5 +72,11 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public ParkingLot getParkingLotByName(String parkingName) {
         return parkingLotMapper.getParkingLotByName(parkingName);
     }
+
+    @Override
+    public List<ParkingLot> getParkingLotList() {
+        return parkingLotMapper.getParkingLotList();
+    }
+
 
 }

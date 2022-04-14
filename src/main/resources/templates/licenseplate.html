@@ -10,10 +10,10 @@
 </head>
 <body>
 <!--车牌识别-->
-<form method="post" action="/imageRecognition" enctype="multipart/form-data">
-    <label>车场选择</label>
-    <select name="parkingName" id="channel" class="classify">
-        <option value="请选择" disabled>请选择</option>
+<form  method="post" action="/imageRecognition" enctype="multipart/form-data">
+    <label style="color: #009688">车场选择&nbsp&nbsp&nbsp</label>
+    <select name="parkingName" id="channel" class="classify" >
+        <option style="font-size: 20px" value="请选择" disabled>请选择</option>
     </select>
     <input type="file" name="fileName">
     <input type="submit" value="提交">
@@ -22,6 +22,7 @@
 
 <div>
     <center><h1>html5调用摄像头demo</h1></center>
+    <h2 style="color: #ee675c;">[[${ErrorMsg}]]</h2>
     <video id="video" width="640" height="480" autoplay="autoplay"></video>
     <canvas id="canvas" width="640" height="480"></canvas>
     <!--拍照按钮-->
